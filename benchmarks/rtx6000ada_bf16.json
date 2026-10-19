@@ -1,0 +1,175 @@
+{
+  "precision": "bfloat16",
+  "dmd_strength": 0.7,
+  "steps": 8,
+  "cfg": 1.0,
+  "sampler": "euler",
+  "scheduler": "simple",
+  "size": 1024,
+  "text_timestep": 1000,
+  "warmups": 1,
+  "repeats": 3,
+  "timing_scope": "KSampler start to SaveImage completion, measured by local WebSocket events; includes fresh text KV construction, sampling, VAE decode and PNG saving; excludes text encoding and warm model loading",
+  "comfyui_version": "0.41.0",
+  "pytorch_version": "2.14.1+cu130",
+  "date": "2026-10-19",
+  "gpu": "NVIDIA RTX 6000 Ada Generation",
+  "qkv_layout": "split",
+  "text_encoder_precision": "bfloat16",
+  "model": "OpenMOSS-Team/MOSS-Image-SFT",
+  "model_revision": "fc5de0d56fc910cbca6f6625a70f5f582b26deb1",
+  "dmd_revision": "f95df83b5e90ae91ea412434b3f9b7f1c8c6314f",
+  "calibration": "moss_image_sft_kv_cache_v1_step000100.safetensors",
+  "prompts": [
+    {
+      "id": "short",
+      "label": "Short description",
+      "reference_tokens": 53
+    },
+    {
+      "id": "long",
+      "label": "Orbital greenhouse layout",
+      "reference_tokens": 2941
+    }
+  ],
+  "measurements": {
+    "short_joint": {
+      "median_seconds": 3.852405874989927,
+      "min_seconds": 3.832479184027761,
+      "max_seconds": 3.872457312885672,
+      "warmup_seconds": 4.189734130632132,
+      "runs": [
+        {
+          "seed": 42,
+          "sampler_node_seconds": 3.5105889891274273,
+          "sampler_to_saved_image_seconds": 3.852405874989927
+        },
+        {
+          "seed": 43,
+          "sampler_node_seconds": 3.518331998027861,
+          "sampler_to_saved_image_seconds": 3.832479184027761
+        },
+        {
+          "seed": 44,
+          "sampler_node_seconds": 3.5479694181121886,
+          "sampler_to_saved_image_seconds": 3.872457312885672
+        }
+      ]
+    },
+    "short_kv": {
+      "median_seconds": 4.185602248646319,
+      "min_seconds": 4.18146851612255,
+      "max_seconds": 4.192094766069204,
+      "warmup_seconds": 4.205995048861951,
+      "runs": [
+        {
+          "seed": 42,
+          "sampler_node_seconds": 3.7998012909665704,
+          "sampler_to_saved_image_seconds": 4.18146851612255
+        },
+        {
+          "seed": 43,
+          "sampler_node_seconds": 3.834295686800033,
+          "sampler_to_saved_image_seconds": 4.185602248646319
+        },
+        {
+          "seed": 44,
+          "sampler_node_seconds": 3.863858314231038,
+          "sampler_to_saved_image_seconds": 4.192094766069204
+        }
+      ]
+    },
+    "short_kv_cal100": {
+      "median_seconds": 4.331172754988074,
+      "min_seconds": 4.305928390938789,
+      "max_seconds": 4.375339767895639,
+      "warmup_seconds": 4.863395805004984,
+      "runs": [
+        {
+          "seed": 42,
+          "sampler_node_seconds": 3.9296624190174043,
+          "sampler_to_saved_image_seconds": 4.305928390938789
+        },
+        {
+          "seed": 43,
+          "sampler_node_seconds": 3.979786016047001,
+          "sampler_to_saved_image_seconds": 4.375339767895639
+        },
+        {
+          "seed": 44,
+          "sampler_node_seconds": 3.9822332649491727,
+          "sampler_to_saved_image_seconds": 4.331172754988074
+        }
+      ]
+    },
+    "long_joint": {
+      "median_seconds": 7.874629284255207,
+      "min_seconds": 7.796693359967321,
+      "max_seconds": 7.962674407754093,
+      "warmup_seconds": 8.1735721048899,
+      "runs": [
+        {
+          "seed": 42,
+          "sampler_node_seconds": 7.48718533013016,
+          "sampler_to_saved_image_seconds": 7.796693359967321
+        },
+        {
+          "seed": 43,
+          "sampler_node_seconds": 7.5379964811727405,
+          "sampler_to_saved_image_seconds": 7.874629284255207
+        },
+        {
+          "seed": 44,
+          "sampler_node_seconds": 7.602661008015275,
+          "sampler_to_saved_image_seconds": 7.962674407754093
+        }
+      ]
+    },
+    "long_kv": {
+      "median_seconds": 5.196468750946224,
+      "min_seconds": 5.162365737371147,
+      "max_seconds": 5.212392522953451,
+      "warmup_seconds": 5.164660561829805,
+      "runs": [
+        {
+          "seed": 42,
+          "sampler_node_seconds": 4.819918080698699,
+          "sampler_to_saved_image_seconds": 5.196468750946224
+        },
+        {
+          "seed": 43,
+          "sampler_node_seconds": 4.824728277977556,
+          "sampler_to_saved_image_seconds": 5.162365737371147
+        },
+        {
+          "seed": 44,
+          "sampler_node_seconds": 4.842473501805216,
+          "sampler_to_saved_image_seconds": 5.212392522953451
+        }
+      ]
+    },
+    "long_kv_cal100": {
+      "median_seconds": 5.2562958849594,
+      "min_seconds": 5.229772615246475,
+      "max_seconds": 5.263028608169407,
+      "warmup_seconds": 5.734573401045054,
+      "runs": [
+        {
+          "seed": 42,
+          "sampler_node_seconds": 4.864364634267986,
+          "sampler_to_saved_image_seconds": 5.263028608169407
+        },
+        {
+          "seed": 43,
+          "sampler_node_seconds": 4.865451237652451,
+          "sampler_to_saved_image_seconds": 5.2562958849594
+        },
+        {
+          "seed": 44,
+          "sampler_node_seconds": 4.883782407268882,
+          "sampler_to_saved_image_seconds": 5.229772615246475
+        }
+      ]
+    }
+  }
+}

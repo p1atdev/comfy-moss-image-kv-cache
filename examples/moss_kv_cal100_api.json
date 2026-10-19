@@ -1,0 +1,133 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "moss_image_sft_bf16.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "lora_name": "lora_latest.safetensors",
+      "strength_model": 0.7
+    }
+  },
+  "3": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "lora_name": "moss_image_sft_kv_cache_v1_step000100.safetensors",
+      "strength_model": 1.0
+    }
+  },
+  "4": {
+    "class_type": "MOSSImageKVCache",
+    "inputs": {
+      "model": [
+        "3",
+        0
+      ],
+      "text_timestep": 1000.0
+    }
+  },
+  "5": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3.5_9b_bf16.safetensors",
+      "type": "moss_image",
+      "device": "default"
+    }
+  },
+  "6": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "5",
+        0
+      ],
+      "text": "{\n  \"summary\": {\n    \"meta\": [\n      \"anime illustration\"\n    ],\n    \"canvas\": \"single\",\n    \"caption\": \"Create one coherent, beautifully finished square anime illustration of an adult female botanist working with a small gardening robot in an orbital greenhouse. This is a narrative illustration, not a poster, an infographic, a comic page, or a collection of separate panels. Follow the supplied layout regions as approximate locations and extents within a continuous perspective scene. The blue-haired woman is the dominant full-body subject on the left, the small floor robot is on the right, a wooden workbench bridges the middle-right foreground, and a broad panoramic window reveals one luminous blue Earth in the rear. Use the remaining specified plants, experimental glass dome, notebook, seedling tray, stool, drawers, utility pipe, and tiny hovering drone to make the scene rich but readable. Regions may overlap because of normal depth and occlusion: background walls and window stay behind the subjects, tabletop objects sit on the table, and furniture contacts the same floor. Use crisp expressive line art, carefully controlled cel shading, finely painted background details, cream and teal machinery, warm wood, coral accents, and cool Earth light. Maintain anatomically coherent hands, adult proportions, clear silhouettes, and believable relative scale. There is exactly one adult woman, one floor robot, and one tiny drone. Do not render any readable text, logos, numerical labels, bbox outlines, color-coded regions, construction lines, captions, or panel borders in the finished illustration.\"\n  },\n  \"items\": [\n    {\n      \"label\": \"object\",\n      \"caption\": \"The continuous architectural background of one orbital greenhouse, drawn as a carefully composed anime illustration. Use cream curved structural ribs, pale turquoise glass, a warm light-gray floor with fine perspective seams, and soft teal shadows. The room is viewed at eye level with a gentle three-quarter perspective, not as an architectural plan. Background architecture must connect naturally behind all the foreground objects. Keep the center of the room open and provide a coherent floor plane for the woman, stool, drawers, and small robot. This is a single narrative scene without text, captions, frames, inset panels, or diagram marks.\",\n      \"bbox\": [\n        -512,\n        -512,\n        512,\n        512\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One large panoramic rounded-rectangle observation window in the upper-right rear wall. Its curved cream frame follows the greenhouse architecture and contains three thin turquoise vertical supports. Through the glass, show dark indigo space and a few small distant stars. The large Earth described separately belongs inside this window. Keep the window behind the woman, hanging plants, drone, and workbench. Its framing must read as part of the room, not a separate picture or a poster mounted on a wall.\",\n      \"bbox\": [\n        -448,\n        -126,\n        -8,\n        474\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single luminous blue Earth seen through the panoramic window, with a softly curved horizon, turquoise ocean, white spiral clouds, and a delicate pale atmospheric rim. The planet occupies only this upper-right background region. Render the Earth with smooth anime background-painting technique and fine cloud details. Its light is cool and softly illuminates the glass and nearby metal. Do not place a second planet, a moon, a sun, large lettering, or any geographic labels inside the window.\",\n      \"bbox\": [\n        -364,\n        78,\n        -84,\n        404\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"Exactly one adult female botanist with short blue bobbed hair, a calm friendly expression, and clearly adult proportions, standing in the left foreground in three-quarter view facing toward the right. Show her entire body, including both shoes, within this tall region. She wears a cream utility jumpsuit with teal seam details, a coral belt pouch, rolled sleeves, and practical dark boots. Her left hand supports a small terracotta seedling pot close to her chest, while her right hand reaches toward the workbench. Use expressive but anatomically coherent hands, crisp anime line art, soft cel shading, and subtle reflected cool window light. Do not duplicate the woman, add extra faces, give her a space helmet, or turn her into a tiny background figure.\",\n      \"bbox\": [\n        -350,\n        -440,\n        472,\n        -26\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One small friendly gardening assistant robot standing on the floor in the lower-right foreground beside the workbench. Its rounded white body has teal joints, two short articulated arms, two sturdy small feet, and one dark oval face screen containing two blue eye lights. The robot is about knee-high relative to the woman and looks up toward her. One arm holds a small brass watering nozzle, while the other rests at its side. Draw a readable silhouette and a gentle contact shadow. Do not add a second floor robot or give this robot human hair, clothing, a printed logo, or a speech bubble.\",\n      \"bbox\": [\n        108,\n        230,\n        434,\n        446\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single long waist-high worktable in the middle-right foreground, with a warm pale-wood top, a thin cream metal frame, and two visible legs extending toward the floor. Its top surface is shown in perspective and provides a continuous support for the bell jar, notebook, and seedling tray described in their own regions. The left end sits near the botanist right hand. The front edge remains straight and unobstructed enough to read clearly. Avoid duplicating the table, turning it into a counter spanning the entire image, or covering the tabletop with random extra tools.\",\n      \"bbox\": [\n        40,\n        -102,\n        284,\n        476\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single transparent glass bell jar resting on the rear-left portion of the worktable. Inside is one small glowing green fern rooted in dark soil, held in a simple shallow white dish. Give the glass delicate white rim highlights and subtle reflections of the blue Earth without making it opaque. The glass dome must remain in this compact region and rise above the tabletop. Keep the fern botanical and plausible, with no face, miniature person, liquid-filled tube, label, written annotation, or duplicate jar beside it.\",\n      \"bbox\": [\n        -116,\n        28,\n        96,\n        192\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One open cream notebook lying flat on the front-right area of the wooden worktable, shown at the same perspective angle as the tabletop. Each page contains a few delicate green plant sketches and light gray unlettered pencil strokes. The spine is visible and the page corners curl slightly. It must clearly read as one open notebook rather than a stack of books, a computer, or a floating rectangular panel. Do not render readable words, numbers, diagrams with labels, or any text outside the pages.\",\n      \"bbox\": [\n        42,\n        192,\n        130,\n        384\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single shallow rectangular terracotta seedling tray on the rear-right area of the table, behind the open notebook. The tray contains exactly four small green seedlings planted in a tidy two-by-two arrangement. Make the leaves clearly separate, varied but healthy, with soft light from the window. Preserve the simple shape of the tray and its contact with the wooden tabletop. Do not place this tray on the floor, add a second tray, replace it with a large shrub, or introduce plant labels and printed text.\",\n      \"bbox\": [\n        -62,\n        304,\n        50,\n        462\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One hanging planter near the upper-left corner of the greenhouse, with a modest ivory ceramic pot suspended from two thin dark cords. A lush but controlled cluster of small rounded green leaves spills downward and slightly toward the center. The plant remains above the botanist head, with a clear gap between its leaves and her blue hair. Draw fine leaf silhouettes and subtle warm highlights. Do not repeat the pot, create a wall of dense vegetation, or obscure the woman face with hanging foliage.\",\n      \"bbox\": [\n        -494,\n        -436,\n        -342,\n        -200\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A second and final hanging planter in the upper-right corner, different from the left planter: a small terracotta pot with a trailing vine of pointed leaves and a few pale-yellow blossoms. Suspend it from the greenhouse ceiling with two fine cords. Its foliage overlaps the outer window frame slightly but leaves most of the Earth visible. This planter balances the composition across the top without becoming a mirror copy of the left plant. Keep the flowers small and do not add more hanging pots elsewhere.\",\n      \"bbox\": [\n        -488,\n        218,\n        -322,\n        454\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A slim vertical cream utility pipe fixed to the far-left greenhouse wall, running behind the woman from the upper-left middle of the frame toward the floor. Include three understated teal fastening bands and a tiny unlettered brass valve near its lower half. Its scale should reinforce the room architecture without drawing attention from the character. Keep the pipe within this narrow strip. Do not transform it into a thick pillar, a window frame, an enormous machine, or a border around the image.\",\n      \"bbox\": [\n        -326,\n        -492,\n        378,\n        -454\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One small terracotta floor pot in the extreme lower-left foreground, containing a compact cluster of coral and pale-yellow flowers with a few dark green leaves. The pot slightly overlaps the very edge of the floor near the botanist left boot but must not cover both shoes or hide her legs. Use clear simple flower silhouettes and a soft grounded shadow. Keep this decorative plant small so the adult woman remains the dominant foreground subject. Do not create a wide flower bed or add more floor pots.\",\n      \"bbox\": [\n        344,\n        -496,\n        496,\n        -384\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One low round workshop stool on the floor beneath the central portion of the table. It has a warm wooden circular seat, three cream metal legs, and a small triangular stretcher. The seat and legs share the room perspective and cast a soft shadow on the light-gray floor. Keep it between the botanist and the assistant robot without intersecting their bodies. The stool is not occupied. Do not add a second stool, turn it into a chair with a high back, or place objects on its seat.\",\n      \"bbox\": [\n        242,\n        28,\n        480,\n        198\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One compact narrow cream storage unit with exactly three shallow drawers under the left end of the worktable. Each drawer has a small teal recessed handle, with no labels. The unit sits on four short feet and follows the same perspective as the table frame. Keep its visible front plane tidy and leave separation from the botanist boots and the stool. This is practical workshop furniture, not a stack of loose boxes, a cabinet spanning the whole scene, or a second robot.\",\n      \"bbox\": [\n        292,\n        -118,\n        470,\n        14\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One tiny spherical inspection drone hovering in the upper-middle space between the botanist head and the panoramic window. It has a white shell, one small blue lens, a thin teal equatorial ring, and two tiny folded fins. The drone is much smaller than the floor robot and sits clearly behind the woman rather than directly in front of her face. Add only a faint blue glow and no motion trails. Do not duplicate it, attach a text bubble, or give it a large humanoid body.\",\n      \"bbox\": [\n        -304,\n        -30,\n        -218,\n        58\n      ]\n    }\n  ],\n  \"bbox_coord_space\": \"abs_centralized\",\n  \"bbox_format\": \"yxyx\"\n}"
+    }
+  },
+  "7": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "5",
+        0
+      ],
+      "text": ""
+    }
+  },
+  "8": {
+    "class_type": "EmptyFlux2LatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    }
+  },
+  "9": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "4",
+        0
+      ],
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "8",
+        0
+      ],
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "10": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "flux2-vae_small.safetensors"
+    }
+  },
+  "11": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "9",
+        0
+      ],
+      "vae": [
+        "10",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "11",
+        0
+      ],
+      "filename_prefix": "MOSS_KV_Cal100"
+    }
+  }
+}
