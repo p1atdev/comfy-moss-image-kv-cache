@@ -1,0 +1,27 @@
+[
+  {
+    "id": "anime_short_portrait",
+    "label": "Blue-haired anime portrait",
+    "prompt": "Anime illustration of an adult woman with short blue hair, amber eyes, and a red scarf. Close-up portrait, clean line art, soft cel shading, pale cream background."
+  },
+  {
+    "id": "anime_rainy_city",
+    "label": "Rainy neon street",
+    "prompt": "A cinematic anime illustration of an adult woman in a yellow raincoat holding a transparent umbrella on a rainy city street at night. Her short dark hair and thoughtful face are clearly visible. Pink and cyan shop lights reflect in puddles, a small white cat waits beside her boots, and distant pedestrians recede into atmospheric mist. Three-quarter full-body view, expressive clean linework, detailed painted background, luminous reflections, a single coherent scene."
+  },
+  {
+    "id": "photo_product",
+    "label": "Glass perfume product shot",
+    "prompt": "Luxury product photography of a single square cobalt-blue glass perfume bottle with a small silver cap, resting on a pale travertine pedestal. A clean white label on the front reads MOSS in simple black uppercase letters. Soft morning sunlight creates a crisp diagonal shadow, subtle caustics, beige background, precise glass reflections, elegant minimal composition."
+  },
+  {
+    "id": "count_three_ovals",
+    "label": "Exactly three red ovals",
+    "prompt": "Minimal flat vector graphic on a pure white background. Exactly three identical solid red vertical ovals, evenly spaced in one horizontal row. No outlines, shadows, gradients, text, or additional shapes."
+  },
+  {
+    "id": "poster_typography",
+    "label": "OPEN / 24 HOURS sign",
+    "prompt": "A clean retro coffee-shop sign on a warm cream background. Large dark-green uppercase lettering reads OPEN on the first line and 24 HOURS on the second line. A small orange coffee-cup icon is centered below the words. Bold readable typography, symmetrical centered layout, subtle paper texture, no other lettering."
+  }
+]

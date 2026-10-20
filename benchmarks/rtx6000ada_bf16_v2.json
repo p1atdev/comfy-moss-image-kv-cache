@@ -1,0 +1,540 @@
+{
+  "date": "2026-10-20",
+  "workflow_sha256": "455ab7b69f2f1b334a2e1be4be0145e473ea9385bc4377cf9a78fabbecac42a0",
+  "calibration_lora": "moss_image_sft_kv_cache_v2_step000500.safetensors",
+  "precision": "bfloat16",
+  "dmd_strength": 0.7,
+  "steps": 8,
+  "cfg": 1.0,
+  "sampler": "euler",
+  "scheduler": "simple",
+  "size": 1024,
+  "text_timestep": 1000,
+  "warmups": 1,
+  "repeats": 3,
+  "timing_scope": "KSampler start to SaveImage completion, measured by local WebSocket events; includes fresh text KV construction, sampling, VAE decode and PNG saving; excludes text encoding and warm model loading",
+  "prompts": [
+    {
+      "id": "short",
+      "label": "Short description",
+      "reference_tokens": 53,
+      "prompt": "An adult female astronaut with short blue hair floating inside a lush orbital greenhouse, Earth visible through a large round window, colorful anime illustration, crisp line art, cel shading, expressive face, carefully drawn plants and machinery."
+    },
+    {
+      "id": "long",
+      "label": "Orbital greenhouse layout",
+      "reference_tokens": 2941,
+      "prompt": "{\n  \"summary\": {\n    \"meta\": [\n      \"anime illustration\"\n    ],\n    \"canvas\": \"single\",\n    \"caption\": \"Create one coherent, beautifully finished square anime illustration of an adult female botanist working with a small gardening robot in an orbital greenhouse. This is a narrative illustration, not a poster, an infographic, a comic page, or a collection of separate panels. Follow the supplied layout regions as approximate locations and extents within a continuous perspective scene. The blue-haired woman is the dominant full-body subject on the left, the small floor robot is on the right, a wooden workbench bridges the middle-right foreground, and a broad panoramic window reveals one luminous blue Earth in the rear. Use the remaining specified plants, experimental glass dome, notebook, seedling tray, stool, drawers, utility pipe, and tiny hovering drone to make the scene rich but readable. Regions may overlap because of normal depth and occlusion: background walls and window stay behind the subjects, tabletop objects sit on the table, and furniture contacts the same floor. Use crisp expressive line art, carefully controlled cel shading, finely painted background details, cream and teal machinery, warm wood, coral accents, and cool Earth light. Maintain anatomically coherent hands, adult proportions, clear silhouettes, and believable relative scale. There is exactly one adult woman, one floor robot, and one tiny drone. Do not render any readable text, logos, numerical labels, bbox outlines, color-coded regions, construction lines, captions, or panel borders in the finished illustration.\"\n  },\n  \"items\": [\n    {\n      \"label\": \"object\",\n      \"caption\": \"The continuous architectural background of one orbital greenhouse, drawn as a carefully composed anime illustration. Use cream curved structural ribs, pale turquoise glass, a warm light-gray floor with fine perspective seams, and soft teal shadows. The room is viewed at eye level with a gentle three-quarter perspective, not as an architectural plan. Background architecture must connect naturally behind all the foreground objects. Keep the center of the room open and provide a coherent floor plane for the woman, stool, drawers, and small robot. This is a single narrative scene without text, captions, frames, inset panels, or diagram marks.\",\n      \"bbox\": [\n        -512,\n        -512,\n        512,\n        512\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One large panoramic rounded-rectangle observation window in the upper-right rear wall. Its curved cream frame follows the greenhouse architecture and contains three thin turquoise vertical supports. Through the glass, show dark indigo space and a few small distant stars. The large Earth described separately belongs inside this window. Keep the window behind the woman, hanging plants, drone, and workbench. Its framing must read as part of the room, not a separate picture or a poster mounted on a wall.\",\n      \"bbox\": [\n        -448,\n        -126,\n        -8,\n        474\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single luminous blue Earth seen through the panoramic window, with a softly curved horizon, turquoise ocean, white spiral clouds, and a delicate pale atmospheric rim. The planet occupies only this upper-right background region. Render the Earth with smooth anime background-painting technique and fine cloud details. Its light is cool and softly illuminates the glass and nearby metal. Do not place a second planet, a moon, a sun, large lettering, or any geographic labels inside the window.\",\n      \"bbox\": [\n        -364,\n        78,\n        -84,\n        404\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"Exactly one adult female botanist with short blue bobbed hair, a calm friendly expression, and clearly adult proportions, standing in the left foreground in three-quarter view facing toward the right. Show her entire body, including both shoes, within this tall region. She wears a cream utility jumpsuit with teal seam details, a coral belt pouch, rolled sleeves, and practical dark boots. Her left hand supports a small terracotta seedling pot close to her chest, while her right hand reaches toward the workbench. Use expressive but anatomically coherent hands, crisp anime line art, soft cel shading, and subtle reflected cool window light. Do not duplicate the woman, add extra faces, give her a space helmet, or turn her into a tiny background figure.\",\n      \"bbox\": [\n        -350,\n        -440,\n        472,\n        -26\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One small friendly gardening assistant robot standing on the floor in the lower-right foreground beside the workbench. Its rounded white body has teal joints, two short articulated arms, two sturdy small feet, and one dark oval face screen containing two blue eye lights. The robot is about knee-high relative to the woman and looks up toward her. One arm holds a small brass watering nozzle, while the other rests at its side. Draw a readable silhouette and a gentle contact shadow. Do not add a second floor robot or give this robot human hair, clothing, a printed logo, or a speech bubble.\",\n      \"bbox\": [\n        108,\n        230,\n        434,\n        446\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single long waist-high worktable in the middle-right foreground, with a warm pale-wood top, a thin cream metal frame, and two visible legs extending toward the floor. Its top surface is shown in perspective and provides a continuous support for the bell jar, notebook, and seedling tray described in their own regions. The left end sits near the botanist right hand. The front edge remains straight and unobstructed enough to read clearly. Avoid duplicating the table, turning it into a counter spanning the entire image, or covering the tabletop with random extra tools.\",\n      \"bbox\": [\n        40,\n        -102,\n        284,\n        476\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single transparent glass bell jar resting on the rear-left portion of the worktable. Inside is one small glowing green fern rooted in dark soil, held in a simple shallow white dish. Give the glass delicate white rim highlights and subtle reflections of the blue Earth without making it opaque. The glass dome must remain in this compact region and rise above the tabletop. Keep the fern botanical and plausible, with no face, miniature person, liquid-filled tube, label, written annotation, or duplicate jar beside it.\",\n      \"bbox\": [\n        -116,\n        28,\n        96,\n        192\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One open cream notebook lying flat on the front-right area of the wooden worktable, shown at the same perspective angle as the tabletop. Each page contains a few delicate green plant sketches and light gray unlettered pencil strokes. The spine is visible and the page corners curl slightly. It must clearly read as one open notebook rather than a stack of books, a computer, or a floating rectangular panel. Do not render readable words, numbers, diagrams with labels, or any text outside the pages.\",\n      \"bbox\": [\n        42,\n        192,\n        130,\n        384\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single shallow rectangular terracotta seedling tray on the rear-right area of the table, behind the open notebook. The tray contains exactly four small green seedlings planted in a tidy two-by-two arrangement. Make the leaves clearly separate, varied but healthy, with soft light from the window. Preserve the simple shape of the tray and its contact with the wooden tabletop. Do not place this tray on the floor, add a second tray, replace it with a large shrub, or introduce plant labels and printed text.\",\n      \"bbox\": [\n        -62,\n        304,\n        50,\n        462\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One hanging planter near the upper-left corner of the greenhouse, with a modest ivory ceramic pot suspended from two thin dark cords. A lush but controlled cluster of small rounded green leaves spills downward and slightly toward the center. The plant remains above the botanist head, with a clear gap between its leaves and her blue hair. Draw fine leaf silhouettes and subtle warm highlights. Do not repeat the pot, create a wall of dense vegetation, or obscure the woman face with hanging foliage.\",\n      \"bbox\": [\n        -494,\n        -436,\n        -342,\n        -200\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A second and final hanging planter in the upper-right corner, different from the left planter: a small terracotta pot with a trailing vine of pointed leaves and a few pale-yellow blossoms. Suspend it from the greenhouse ceiling with two fine cords. Its foliage overlaps the outer window frame slightly but leaves most of the Earth visible. This planter balances the composition across the top without becoming a mirror copy of the left plant. Keep the flowers small and do not add more hanging pots elsewhere.\",\n      \"bbox\": [\n        -488,\n        218,\n        -322,\n        454\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A slim vertical cream utility pipe fixed to the far-left greenhouse wall, running behind the woman from the upper-left middle of the frame toward the floor. Include three understated teal fastening bands and a tiny unlettered brass valve near its lower half. Its scale should reinforce the room architecture without drawing attention from the character. Keep the pipe within this narrow strip. Do not transform it into a thick pillar, a window frame, an enormous machine, or a border around the image.\",\n      \"bbox\": [\n        -326,\n        -492,\n        378,\n        -454\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One small terracotta floor pot in the extreme lower-left foreground, containing a compact cluster of coral and pale-yellow flowers with a few dark green leaves. The pot slightly overlaps the very edge of the floor near the botanist left boot but must not cover both shoes or hide her legs. Use clear simple flower silhouettes and a soft grounded shadow. Keep this decorative plant small so the adult woman remains the dominant foreground subject. Do not create a wide flower bed or add more floor pots.\",\n      \"bbox\": [\n        344,\n        -496,\n        496,\n        -384\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One low round workshop stool on the floor beneath the central portion of the table. It has a warm wooden circular seat, three cream metal legs, and a small triangular stretcher. The seat and legs share the room perspective and cast a soft shadow on the light-gray floor. Keep it between the botanist and the assistant robot without intersecting their bodies. The stool is not occupied. Do not add a second stool, turn it into a chair with a high back, or place objects on its seat.\",\n      \"bbox\": [\n        242,\n        28,\n        480,\n        198\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One compact narrow cream storage unit with exactly three shallow drawers under the left end of the worktable. Each drawer has a small teal recessed handle, with no labels. The unit sits on four short feet and follows the same perspective as the table frame. Keep its visible front plane tidy and leave separation from the botanist boots and the stool. This is practical workshop furniture, not a stack of loose boxes, a cabinet spanning the whole scene, or a second robot.\",\n      \"bbox\": [\n        292,\n        -118,\n        470,\n        14\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One tiny spherical inspection drone hovering in the upper-middle space between the botanist head and the panoramic window. It has a white shell, one small blue lens, a thin teal equatorial ring, and two tiny folded fins. The drone is much smaller than the floor robot and sits clearly behind the woman rather than directly in front of her face. Add only a faint blue glow and no motion trails. Do not duplicate it, attach a text bubble, or give it a large humanoid body.\",\n      \"bbox\": [\n        -304,\n        -30,\n        -218,\n        58\n      ]\n    }\n  ],\n  \"bbox_coord_space\": \"abs_centralized\",\n  \"bbox_format\": \"yxyx\"\n}"
+    }
+  ],
+  "measurements": {
+    "short_joint": {
+      "warmup": {
+        "prompt_id": "abbf57bf-40ef-425f-a46c-7e3510c05da2",
+        "sampler_node_seconds": 7.809606468770653,
+        "sampler_to_saved_image_seconds": 10.741871747653931,
+        "images": [
+          {
+            "filename": "short_joint_0_00001_.png",
+            "subfolder": "release_v2/benchmark",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "f5caf3ebf0c5e214daa1ce21ac3e3d193f8aaf18014e818d81b0fce75a808f17"
+          }
+        ],
+        "seed": 41
+      },
+      "runs": [
+        {
+          "prompt_id": "dda5b7a4-9559-4b62-8f69-a90b4754d022",
+          "sampler_node_seconds": 3.671906225848943,
+          "sampler_to_saved_image_seconds": 3.980872844811529,
+          "images": [
+            {
+              "filename": "short_joint_1_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "15ff843162d90152320f25f4870533d5e71fecfd98e3c625bc5907f5ec05a0a8"
+            }
+          ],
+          "seed": 42
+        },
+        {
+          "prompt_id": "5b868f4d-f97c-423c-937d-06221ab11d71",
+          "sampler_node_seconds": 3.655600592959672,
+          "sampler_to_saved_image_seconds": 3.980632830876857,
+          "images": [
+            {
+              "filename": "short_joint_2_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "36c6dc1e133ee9436d47d81366cc0b549af50442bef6bc25cefe7bcb2b4a62c2"
+            }
+          ],
+          "seed": 43
+        },
+        {
+          "prompt_id": "e709d198-74db-4197-93a3-c4b7aa2ab5f9",
+          "sampler_node_seconds": 3.684334727935493,
+          "sampler_to_saved_image_seconds": 4.02349839778617,
+          "images": [
+            {
+              "filename": "short_joint_3_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "ecf4f7db14852d56ccc67c0ca49ee7ffc8014c792809cc3dd038a3aa83c63623"
+            }
+          ],
+          "seed": 44
+        }
+      ],
+      "median_seconds": 3.980872844811529,
+      "min_seconds": 3.980632830876857,
+      "max_seconds": 4.02349839778617
+    },
+    "short_kv": {
+      "warmup": {
+        "prompt_id": "eda7eccb-e9e7-4a06-9920-faca586d794e",
+        "sampler_node_seconds": 4.100626385305077,
+        "sampler_to_saved_image_seconds": 4.477992422413081,
+        "images": [
+          {
+            "filename": "short_kv_0_00001_.png",
+            "subfolder": "release_v2/benchmark",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "adbf52da45695c128e962c2d00660253d7ba40db729077a67abd0e72c0758bee"
+          }
+        ],
+        "seed": 41
+      },
+      "runs": [
+        {
+          "prompt_id": "5de13174-b48d-4824-8096-951e6201b495",
+          "sampler_node_seconds": 3.951520655769855,
+          "sampler_to_saved_image_seconds": 4.295952523127198,
+          "images": [
+            {
+              "filename": "short_kv_1_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "db76803d413ee2c122f8b5e52694a9cfa196fc4afada25f0ab681ea4c6faa4e9"
+            }
+          ],
+          "seed": 42
+        },
+        {
+          "prompt_id": "54be1cc1-b399-4a14-9b79-f1816c48c023",
+          "sampler_node_seconds": 3.9747151318006217,
+          "sampler_to_saved_image_seconds": 4.334949200041592,
+          "images": [
+            {
+              "filename": "short_kv_2_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "115d1ce5d050a02a59d6c6bf84a38e46ea3e77f2b649baf3ab27ba940c7ffba0"
+            }
+          ],
+          "seed": 43
+        },
+        {
+          "prompt_id": "a1a788ff-eef4-44c7-8e2b-12a26f24dde9",
+          "sampler_node_seconds": 4.014137094840407,
+          "sampler_to_saved_image_seconds": 4.347531192004681,
+          "images": [
+            {
+              "filename": "short_kv_3_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "247d4832304e912aef1b0a8a5af533f8d843971bdd28503321a0dfd4e00a0789"
+            }
+          ],
+          "seed": 44
+        }
+      ],
+      "median_seconds": 4.334949200041592,
+      "min_seconds": 4.295952523127198,
+      "max_seconds": 4.347531192004681
+    },
+    "short_kv_corrected": {
+      "warmup": {
+        "prompt_id": "708fe9dd-59d7-4c3b-a491-7c8a3e12ae6d",
+        "sampler_node_seconds": 4.629133827984333,
+        "sampler_to_saved_image_seconds": 4.968740062788129,
+        "images": [
+          {
+            "filename": "short_kv_corrected_0_00001_.png",
+            "subfolder": "release_v2/benchmark",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "46d74ff2530e3f4cbd278b665304b4f46cd418b3ab758123b8994406f65e4bef"
+          }
+        ],
+        "seed": 41
+      },
+      "runs": [
+        {
+          "prompt_id": "5122c257-8223-49da-aacb-e66214693451",
+          "sampler_node_seconds": 4.030056267045438,
+          "sampler_to_saved_image_seconds": 4.375472903717309,
+          "images": [
+            {
+              "filename": "short_kv_corrected_1_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "0e53f7237e4437f6446467a830fb31bbfb989574b6c7e68542c997c855f70044"
+            }
+          ],
+          "seed": 42
+        },
+        {
+          "prompt_id": "05608635-7d0e-4cb4-ae16-81c613f1a642",
+          "sampler_node_seconds": 4.080898004118353,
+          "sampler_to_saved_image_seconds": 4.386780587956309,
+          "images": [
+            {
+              "filename": "short_kv_corrected_2_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "776dc466fa321661c15e284a924929736c1343fb6941a1511cea14ef81cfd748"
+            }
+          ],
+          "seed": 43
+        },
+        {
+          "prompt_id": "f9b9236e-7e27-45e8-9c4b-06421cecee4c",
+          "sampler_node_seconds": 4.101434926036745,
+          "sampler_to_saved_image_seconds": 4.42477186396718,
+          "images": [
+            {
+              "filename": "short_kv_corrected_3_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "324c2c95ced1ef6ea8028608382020c3052f2a830ea3b9629902c2a5ee8f23cc"
+            }
+          ],
+          "seed": 44
+        }
+      ],
+      "median_seconds": 4.386780587956309,
+      "min_seconds": 4.375472903717309,
+      "max_seconds": 4.42477186396718
+    },
+    "long_joint": {
+      "warmup": {
+        "prompt_id": "09732809-07a0-41d0-86af-b7b76e15aa3e",
+        "sampler_node_seconds": 8.032801433932036,
+        "sampler_to_saved_image_seconds": 8.321234697010368,
+        "images": [
+          {
+            "filename": "long_joint_0_00001_.png",
+            "subfolder": "release_v2/benchmark",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "b581bc221f17e7cb3b8e27a5cf3405061bad0c1c36f2dbaf4dc00af7f6a37597"
+          }
+        ],
+        "seed": 41
+      },
+      "runs": [
+        {
+          "prompt_id": "337574dd-2cd9-4d75-a755-f5b3de230ce2",
+          "sampler_node_seconds": 7.6788144069723785,
+          "sampler_to_saved_image_seconds": 8.029511644970626,
+          "images": [
+            {
+              "filename": "long_joint_1_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "de11fe45dd8e8cb454d59a2637c6b2ae33635e70da63bda45553e9c966266d89"
+            }
+          ],
+          "seed": 42
+        },
+        {
+          "prompt_id": "63244dfe-648a-4402-b0e4-abda70da69b7",
+          "sampler_node_seconds": 7.728421270847321,
+          "sampler_to_saved_image_seconds": 8.030771175865084,
+          "images": [
+            {
+              "filename": "long_joint_2_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "35b5b4eb86f9e2747469384f2536d20a71a51796eda6fc3492f2ebaf8c86dafc"
+            }
+          ],
+          "seed": 43
+        },
+        {
+          "prompt_id": "8fcf3fde-e247-4ea2-a58c-5c4ea6d02ff6",
+          "sampler_node_seconds": 7.757078879978508,
+          "sampler_to_saved_image_seconds": 8.10277164215222,
+          "images": [
+            {
+              "filename": "long_joint_3_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "1fcef4afe6a325414462544bfd21ac72ccece88e683171c92f5dc1c09bf58762"
+            }
+          ],
+          "seed": 44
+        }
+      ],
+      "median_seconds": 8.030771175865084,
+      "min_seconds": 8.029511644970626,
+      "max_seconds": 8.10277164215222
+    },
+    "long_kv": {
+      "warmup": {
+        "prompt_id": "b16cfb33-1ec1-4848-b89e-d163639a4f74",
+        "sampler_node_seconds": 4.89554188400507,
+        "sampler_to_saved_image_seconds": 5.2403638693504035,
+        "images": [
+          {
+            "filename": "long_kv_0_00001_.png",
+            "subfolder": "release_v2/benchmark",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "a5427daf57985f032e2028af93d174e3fe6d9cfa42d77683b9a9c6dd86c652a6"
+          }
+        ],
+        "seed": 41
+      },
+      "runs": [
+        {
+          "prompt_id": "5006add1-bd1f-4783-8ab2-6611a62bb7e7",
+          "sampler_node_seconds": 4.9143238249234855,
+          "sampler_to_saved_image_seconds": 5.305088152643293,
+          "images": [
+            {
+              "filename": "long_kv_1_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "46c517e7e12bc837f1aa93301a75a8d10de5de349f7f2e2844828b1c8f9c18a7"
+            }
+          ],
+          "seed": 42
+        },
+        {
+          "prompt_id": "dade5114-7594-48df-b1d6-b5ad32216cfb",
+          "sampler_node_seconds": 4.9169073440134525,
+          "sampler_to_saved_image_seconds": 5.25317142996937,
+          "images": [
+            {
+              "filename": "long_kv_2_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "185eae094d5bf3acc1e55cc554205aee27be8cacdc18f9dc8b3e85ae5dfd379c"
+            }
+          ],
+          "seed": 43
+        },
+        {
+          "prompt_id": "6823acfd-70bb-40dd-9dc8-e1e93a7c6b6e",
+          "sampler_node_seconds": 4.919021730776876,
+          "sampler_to_saved_image_seconds": 5.2405696688219905,
+          "images": [
+            {
+              "filename": "long_kv_3_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "ce797eedcc7b235ba2e46c75c13b89f3cfd90d4870a62f02e000398a839e1997"
+            }
+          ],
+          "seed": 44
+        }
+      ],
+      "median_seconds": 5.25317142996937,
+      "min_seconds": 5.2405696688219905,
+      "max_seconds": 5.305088152643293
+    },
+    "long_kv_corrected": {
+      "warmup": {
+        "prompt_id": "787a5f2e-7f1e-4b25-ae76-0651012ba7ee",
+        "sampler_node_seconds": 5.490255002398044,
+        "sampler_to_saved_image_seconds": 5.822313824202865,
+        "images": [
+          {
+            "filename": "long_kv_corrected_0_00001_.png",
+            "subfolder": "release_v2/benchmark",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "d343b2ec1abfe161f6806470b2e5b2b2ea6dce47ddce374363c38d3aa1121745"
+          }
+        ],
+        "seed": 41
+      },
+      "runs": [
+        {
+          "prompt_id": "55c52c32-8af1-421a-a249-e30bf76e3ad4",
+          "sampler_node_seconds": 4.926743035204709,
+          "sampler_to_saved_image_seconds": 5.253782480023801,
+          "images": [
+            {
+              "filename": "long_kv_corrected_1_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "f39e0a1d25af9cc0904312afc206113134a25ea1acb3d91bbe9dc9b79c43474f"
+            }
+          ],
+          "seed": 42
+        },
+        {
+          "prompt_id": "b413b733-1d19-4929-a0e8-8b4880f423d9",
+          "sampler_node_seconds": 4.9207657389342785,
+          "sampler_to_saved_image_seconds": 5.26120974868536,
+          "images": [
+            {
+              "filename": "long_kv_corrected_2_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "94d71ebdcc77f2703374a14d1bc8ae868571566dcd77edf3a2644152afe5c538"
+            }
+          ],
+          "seed": 43
+        },
+        {
+          "prompt_id": "f0152068-5a29-44fe-8219-47b91e57b5a5",
+          "sampler_node_seconds": 4.944175797048956,
+          "sampler_to_saved_image_seconds": 5.276952174026519,
+          "images": [
+            {
+              "filename": "long_kv_corrected_3_00001_.png",
+              "subfolder": "release_v2/benchmark",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "88807a5a6c6fdee8d302dfa907fea1c282ba71f00f4a4bac5deb95d76c4363d2"
+            }
+          ],
+          "seed": 44
+        }
+      ],
+      "median_seconds": 5.26120974868536,
+      "min_seconds": 5.253782480023801,
+      "max_seconds": 5.276952174026519
+    }
+  },
+  "gpu": "cuda:0 NVIDIA RTX 6000 Ada Generation : cudaMallocAsync",
+  "comfyui_version": "0.41.0",
+  "pytorch_version": "2.14.1+cu130",
+  "calibration_sha256": "153f2262234e55a11644428a962f8f2566e9e4d090095aa07ff5365847e5ac04",
+  "qkv_layout": "split",
+  "text_encoder_precision": "bfloat16",
+  "model": "OpenMOSS-Team/MOSS-Image-SFT",
+  "model_revision": "fc5de0d56fc910cbca6f6625a70f5f582b26deb1",
+  "dmd_revision": "f95df83b5e90ae91ea412434b3f9b7f1c8c6314f",
+  "comfyui_commit": "6607f36b53c7b695b160ac5b52d595e9e3752a2d"
+}

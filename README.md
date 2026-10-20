@@ -26,13 +26,15 @@ Download the following files into the indicated folders under `ComfyUI/models/`.
 | `text_encoders/` | [qwen3.5_9b_bf16.safetensors](https://huggingface.co/Comfy-Org/MOSS-Image/resolve/main/text_encoders/qwen3.5_9b_bf16.safetensors) |
 | `vae/` | [flux2-vae_small.safetensors](https://huggingface.co/Comfy-Org/MOSS-Image/resolve/main/vae/flux2-vae_small.safetensors) |
 | `loras/` | [lora_latest.safetensors](https://huggingface.co/lodestones/MOSS-Image-SFT-8-steps-dmd/resolve/f95df83b5e90ae91ea412434b3f9b7f1c8c6314f/lora_latest.safetensors) — 8-step DMD adapter |
-| `loras/` | [moss_image_sft_kv_cache_v1_step000100.safetensors](https://huggingface.co/p1atdev/MOSS-Image-SFT-KV-Cache-LoRA/resolve/main/moss_image_sft_kv_cache_v1_step000100.safetensors) — KV correction adapter |
+| `loras/` | [moss_image_sft_kv_cache_v2_step000500.safetensors](https://huggingface.co/p1atdev/MOSS-Image-SFT-KV-Cache-LoRA/resolve/main/moss_image_sft_kv_cache_v2_step000500.safetensors) — **v2** KV correction adapter (500 updates) |
+
+**v2 is the recommended correction.** It was trained on 512 prompts, with more short prompts, anime, photography and MOSS JSON layouts. The [model card](https://huggingface.co/p1atdev/MOSS-Image-SFT-KV-Cache-LoRA) describes its training and validation. The [v1 checkpoint](https://huggingface.co/p1atdev/MOSS-Image-SFT-KV-Cache-LoRA/resolve/main/moss_image_sft_kv_cache_v1_step000100.safetensors) and [v1 workflow](examples/moss_kv_cal100.json) remain available.
 
 The DMD link pins the revision used to train the correction. The correction adapter contains neither the base model nor the DMD adapter. Use the **SFT** base model.
 
 ## Generate an image
 
-1. Download [the example workflow](examples/moss_kv_cal100.json) and drag it into ComfyUI.
+1. Download [the example workflow](examples/moss_kv_v2.json) and drag it into ComfyUI.
 2. Select the downloaded files in the model, text encoder, VAE and two LoRA loaders.
 3. Edit the positive prompt and click **Run**. The example includes a detailed orbital-greenhouse scene layout.
 
@@ -48,7 +50,7 @@ Load Diffusion Model
 
 Recommended settings: **Euler / simple / 8 steps / CFG 1**, 1024×1024, `EmptyFlux2LatentImage`, and `CLIPLoader` type `moss_image`. For BF16 text encoding, launch ComfyUI with `--bf16-text-enc`.
 
-For API clients, [moss_kv_cal100_api.json](examples/moss_kv_cal100_api.json) contains the same graph. Submit it to `/prompt`, or run:
+For API clients, [moss_kv_v2_api.json](examples/moss_kv_v2_api.json) contains the same graph. Submit it to `/prompt`, or run:
 
 ```bash
 python custom_nodes/comfy-moss-image-kv-cache/examples/queue_prompt.py
@@ -58,25 +60,39 @@ python custom_nodes/comfy-moss-image-kv-cache/examples/queue_prompt.py
 
 ![BF16 generation time with short and long prompts](assets/kv_cache_benchmark.png)
 
-For the 2,941-token prompt, **KV + correction reduces generation time from 7.87 s to 5.26 s: 1.50× faster, or 33% less time**. The 53-token prompt becomes slower (3.85 s → 4.33 s).
+For the 2,941-token prompt, **KV + v2 correction reduces generation time from 8.03 s to 5.26 s: 1.53× faster, or 34% less time**. The 53-token prompt takes 3.98 s → 4.39 s.
 
-All conditions use the BF16 SFT model with split Q/K/V projections, BF16 text encoder, DMD strength 0.7, Euler/simple, 8 steps, CFG 1, batch 1 and 1024×1024 on an RTX 6000 Ada. Bars show the median of three runs after one warmup per condition; whiskers show the minimum and maximum. Timing covers fresh KV construction, sampling, VAE decoding and PNG saving, measured from KSampler start to SaveImage completion over the local WebSocket API. Text encoding and initial model loading are excluded. These numbers describe warm generation; total startup latency also includes model loading and text encoding.
+Measured with v2 (500 updates). All conditions use the BF16 SFT model with split Q/K/V projections, BF16 text encoder, DMD strength 0.7, Euler/simple, 8 steps, CFG 1, batch 1 and 1024×1024 on an RTX 6000 Ada. Bars show the median of three runs after one warmup per condition; whiskers show the minimum and maximum. Timing covers fresh KV construction, sampling, VAE decoding and PNG saving, measured from KSampler start to SaveImage completion over the local WebSocket API. Text encoding and initial model loading are excluded. These numbers describe warm generation; total startup latency also includes model loading and text encoding.
 
-The long prompt describes one scene with explicit object regions; its full text is in [benchmark_prompts.json](examples/benchmark_prompts.json). [Raw measurements](benchmarks/rtx6000ada_bf16.json) and [the benchmark script](scripts/benchmark.py) are included. To repeat the experiment with an idle ComfyUI server:
+The long prompt describes one scene with explicit object regions; its full text is in [benchmark_prompts.json](examples/benchmark_prompts.json). [Raw measurements](benchmarks/rtx6000ada_bf16_v2.json) and [the benchmark script](scripts/benchmark.py) are included. To repeat the experiment with an idle ComfyUI server:
 
 ```bash
 python custom_nodes/comfy-moss-image-kv-cache/scripts/benchmark.py --output benchmark.json
 ```
 
-![Same long prompt and seed: joint, KV, and KV with correction](assets/long_prompt_comparison.jpg)
+![Same long prompt and seed: joint, KV, and KV with v2 correction](assets/long_prompt_comparison.jpg)
 
-The images use the same long prompt and seed 42. They illustrate output changes rather than a controlled quality score.
+The images use the same long prompt and seed 42. They illustrate output changes rather than a controlled quality score. The 2,941-token demonstration is longer than the v2 training prompts (up to 928 tokens).
+
+## More v2 examples
+
+![Short anime prompts: joint, KV, KV with v2 correction](assets/anime_comparison_v2.jpg)
+
+![Product photo, object counts and text: joint, KV, KV with v2 correction](assets/prompt_comparison_v2.jpg)
+
+These comparisons also use native ComfyUI, the BF16 base and text encoder, DMD 0.7, Euler/simple, 8 steps, CFG 1 and 1024×1024. Each row uses seed **20261020** for all three conditions. The correction is applied at strength 1.0. NF4 is not used here. Full text is in [comparison_prompts_v2.json](examples/comparison_prompts_v2.json), with [generation records](benchmarks/comparisons_v2.json). Reproduce them with:
+
+```bash
+python custom_nodes/comfy-moss-image-kv-cache/scripts/benchmark.py \
+  --prompts custom_nodes/comfy-moss-image-kv-cache/examples/comparison_prompts_v2.json \
+  --seed 20261020 --repeats 1 --prefix comparison_v2 --output comparisons_v2.json
+```
 
 ## How it works and limitations
 
 Ordinary joint attention lets text tokens attend to image tokens at every denoising step. This node instead computes text-only attention at a fixed timestep, caches each layer's K/V tensors, and reuses them while updating the image tokens. The cache is rebuilt for each sampling run, so a new prompt or LoRA configuration does not reuse stale tensors.
 
-This changes the model's predictions. The correction LoRA reduces that difference but does not make cached attention equivalent to joint attention; composition, details and prompt adherence can still change. It is an experimental adapter trained on a small prompt set. Benefits depend on prompt length and hardware, and short prompts may see little benefit or become slower. KV tensors also consume VRAM.
+This changes the model's predictions. The correction LoRA reduces that difference but does not make cached attention equivalent to joint attention; composition, details and prompt adherence can still change. It is an experimental adapter trained on a modest prompt set; object counts, typography and fine details can still be wrong. Benefits depend on prompt length and hardware, and short prompts may see little benefit or become slower. KV tensors also consume VRAM.
 
 To compare with ordinary joint attention, bypass **both** the KV node and the correction LoRA, keeping the DMD adapter and sampling settings the same. Keep `text_timestep` at **1000** for the supplied correction. Sampling hooks that change LoRA weights during a run are unsupported.
 

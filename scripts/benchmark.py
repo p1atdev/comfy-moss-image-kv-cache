@@ -8,6 +8,7 @@ import json
 import statistics
 import time
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -61,11 +62,11 @@ async def generate(
 
 
 async def main(args: argparse.Namespace) -> None:
-    root = Path(__file__).resolve().parents[1]
     graph = json.loads(args.workflow.read_text())
-    prompts = json.loads((root / "examples/benchmark_prompts.json").read_text())
-    variants = ("joint", "kv", "kv_cal100")
+    prompts = json.loads(args.prompts.read_text())
+    variants = ("joint", "kv", "kv_corrected")
     result: dict[str, Any] = {
+        "date": datetime.now(timezone.utc).date().isoformat(),
         "workflow_sha256": hashlib.sha256(args.workflow.read_bytes()).hexdigest(),
         "calibration_lora": args.calibration_lora or graph["3"]["inputs"]["lora_name"],
         "precision": "bfloat16",
@@ -110,12 +111,12 @@ async def main(args: argparse.Namespace) -> None:
                     current["6"]["inputs"]["text"] = case["prompt"]
                     # The same seed sequence is used for all three variants.
                     # Changing it invalidates ComfyUI's sampler output cache.
-                    current["9"]["inputs"]["seed"] = 41 + repeat
+                    current["9"]["inputs"]["seed"] = args.seed - 1 + repeat
                     current["12"]["inputs"]["filename_prefix"] = (
-                        f"benchmark/{case['id']}_{variant}_{repeat}"
+                        f"{args.prefix}/{case['id']}_{variant}_{repeat}"
                     )
                     measured = await generate(session, args.server, current)
-                    measured["seed"] = 41 + repeat
+                    measured["seed"] = args.seed - 1 + repeat
                     print(
                         f"{case['id']} {variant} {'warmup' if repeat == 0 else repeat}: "
                         f"{measured['sampler_to_saved_image_seconds']:.3f}s",
@@ -142,9 +143,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "--workflow",
         type=Path,
-        default=Path(__file__).resolve().parents[1]
-        / "examples/moss_kv_cal100_api.json",
+        default=Path(__file__).resolve().parents[1] / "examples/moss_kv_v2_api.json",
     )
+    parser.add_argument(
+        "--prompts",
+        type=Path,
+        default=Path(__file__).resolve().parents[1] / "examples/benchmark_prompts.json",
+    )
+    parser.add_argument("--prefix", default="benchmark_v2")
+    parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--calibration-lora")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--repeats", type=int, default=3)

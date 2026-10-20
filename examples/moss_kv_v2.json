@@ -1,0 +1,579 @@
+{
+  "last_node_id": 12,
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        350,
+        100
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "moss_image_sft_bf16.safetensors",
+        "default"
+      ],
+      "title": "MOSS-Image BF16"
+    },
+    {
+      "id": 2,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        390,
+        0
+      ],
+      "size": [
+        350,
+        125
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "lora_latest.safetensors",
+        0.7
+      ],
+      "title": "Frozen DMD / strength 0.7"
+    },
+    {
+      "id": 3,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        780,
+        0
+      ],
+      "size": [
+        350,
+        125
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "moss_image_sft_kv_cache_v2_step000500.safetensors",
+        1.0
+      ],
+      "title": "KV correction v2 / step 500 / strength 1.0"
+    },
+    {
+      "id": 4,
+      "type": "MOSSImageKVCache",
+      "pos": [
+        1170,
+        0
+      ],
+      "size": [
+        320,
+        100
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MOSSImageKVCache"
+      },
+      "widgets_values": [
+        1000.0
+      ],
+      "title": "Text KV cache / t = 1000"
+    },
+    {
+      "id": 5,
+      "type": "CLIPLoader",
+      "pos": [
+        0,
+        240
+      ],
+      "size": [
+        350,
+        135
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            4,
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3.5_9b_bf16.safetensors",
+        "moss_image",
+        "default"
+      ],
+      "title": "MOSS Qwen3.5 encoder"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        390,
+        240
+      ],
+      "size": [
+        650,
+        550
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "{\n  \"summary\": {\n    \"meta\": [\n      \"anime illustration\"\n    ],\n    \"canvas\": \"single\",\n    \"caption\": \"Create one coherent, beautifully finished square anime illustration of an adult female botanist working with a small gardening robot in an orbital greenhouse. This is a narrative illustration, not a poster, an infographic, a comic page, or a collection of separate panels. Follow the supplied layout regions as approximate locations and extents within a continuous perspective scene. The blue-haired woman is the dominant full-body subject on the left, the small floor robot is on the right, a wooden workbench bridges the middle-right foreground, and a broad panoramic window reveals one luminous blue Earth in the rear. Use the remaining specified plants, experimental glass dome, notebook, seedling tray, stool, drawers, utility pipe, and tiny hovering drone to make the scene rich but readable. Regions may overlap because of normal depth and occlusion: background walls and window stay behind the subjects, tabletop objects sit on the table, and furniture contacts the same floor. Use crisp expressive line art, carefully controlled cel shading, finely painted background details, cream and teal machinery, warm wood, coral accents, and cool Earth light. Maintain anatomically coherent hands, adult proportions, clear silhouettes, and believable relative scale. There is exactly one adult woman, one floor robot, and one tiny drone. Do not render any readable text, logos, numerical labels, bbox outlines, color-coded regions, construction lines, captions, or panel borders in the finished illustration.\"\n  },\n  \"items\": [\n    {\n      \"label\": \"object\",\n      \"caption\": \"The continuous architectural background of one orbital greenhouse, drawn as a carefully composed anime illustration. Use cream curved structural ribs, pale turquoise glass, a warm light-gray floor with fine perspective seams, and soft teal shadows. The room is viewed at eye level with a gentle three-quarter perspective, not as an architectural plan. Background architecture must connect naturally behind all the foreground objects. Keep the center of the room open and provide a coherent floor plane for the woman, stool, drawers, and small robot. This is a single narrative scene without text, captions, frames, inset panels, or diagram marks.\",\n      \"bbox\": [\n        -512,\n        -512,\n        512,\n        512\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One large panoramic rounded-rectangle observation window in the upper-right rear wall. Its curved cream frame follows the greenhouse architecture and contains three thin turquoise vertical supports. Through the glass, show dark indigo space and a few small distant stars. The large Earth described separately belongs inside this window. Keep the window behind the woman, hanging plants, drone, and workbench. Its framing must read as part of the room, not a separate picture or a poster mounted on a wall.\",\n      \"bbox\": [\n        -448,\n        -126,\n        -8,\n        474\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single luminous blue Earth seen through the panoramic window, with a softly curved horizon, turquoise ocean, white spiral clouds, and a delicate pale atmospheric rim. The planet occupies only this upper-right background region. Render the Earth with smooth anime background-painting technique and fine cloud details. Its light is cool and softly illuminates the glass and nearby metal. Do not place a second planet, a moon, a sun, large lettering, or any geographic labels inside the window.\",\n      \"bbox\": [\n        -364,\n        78,\n        -84,\n        404\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"Exactly one adult female botanist with short blue bobbed hair, a calm friendly expression, and clearly adult proportions, standing in the left foreground in three-quarter view facing toward the right. Show her entire body, including both shoes, within this tall region. She wears a cream utility jumpsuit with teal seam details, a coral belt pouch, rolled sleeves, and practical dark boots. Her left hand supports a small terracotta seedling pot close to her chest, while her right hand reaches toward the workbench. Use expressive but anatomically coherent hands, crisp anime line art, soft cel shading, and subtle reflected cool window light. Do not duplicate the woman, add extra faces, give her a space helmet, or turn her into a tiny background figure.\",\n      \"bbox\": [\n        -350,\n        -440,\n        472,\n        -26\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One small friendly gardening assistant robot standing on the floor in the lower-right foreground beside the workbench. Its rounded white body has teal joints, two short articulated arms, two sturdy small feet, and one dark oval face screen containing two blue eye lights. The robot is about knee-high relative to the woman and looks up toward her. One arm holds a small brass watering nozzle, while the other rests at its side. Draw a readable silhouette and a gentle contact shadow. Do not add a second floor robot or give this robot human hair, clothing, a printed logo, or a speech bubble.\",\n      \"bbox\": [\n        108,\n        230,\n        434,\n        446\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single long waist-high worktable in the middle-right foreground, with a warm pale-wood top, a thin cream metal frame, and two visible legs extending toward the floor. Its top surface is shown in perspective and provides a continuous support for the bell jar, notebook, and seedling tray described in their own regions. The left end sits near the botanist right hand. The front edge remains straight and unobstructed enough to read clearly. Avoid duplicating the table, turning it into a counter spanning the entire image, or covering the tabletop with random extra tools.\",\n      \"bbox\": [\n        40,\n        -102,\n        284,\n        476\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single transparent glass bell jar resting on the rear-left portion of the worktable. Inside is one small glowing green fern rooted in dark soil, held in a simple shallow white dish. Give the glass delicate white rim highlights and subtle reflections of the blue Earth without making it opaque. The glass dome must remain in this compact region and rise above the tabletop. Keep the fern botanical and plausible, with no face, miniature person, liquid-filled tube, label, written annotation, or duplicate jar beside it.\",\n      \"bbox\": [\n        -116,\n        28,\n        96,\n        192\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One open cream notebook lying flat on the front-right area of the wooden worktable, shown at the same perspective angle as the tabletop. Each page contains a few delicate green plant sketches and light gray unlettered pencil strokes. The spine is visible and the page corners curl slightly. It must clearly read as one open notebook rather than a stack of books, a computer, or a floating rectangular panel. Do not render readable words, numbers, diagrams with labels, or any text outside the pages.\",\n      \"bbox\": [\n        42,\n        192,\n        130,\n        384\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A single shallow rectangular terracotta seedling tray on the rear-right area of the table, behind the open notebook. The tray contains exactly four small green seedlings planted in a tidy two-by-two arrangement. Make the leaves clearly separate, varied but healthy, with soft light from the window. Preserve the simple shape of the tray and its contact with the wooden tabletop. Do not place this tray on the floor, add a second tray, replace it with a large shrub, or introduce plant labels and printed text.\",\n      \"bbox\": [\n        -62,\n        304,\n        50,\n        462\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One hanging planter near the upper-left corner of the greenhouse, with a modest ivory ceramic pot suspended from two thin dark cords. A lush but controlled cluster of small rounded green leaves spills downward and slightly toward the center. The plant remains above the botanist head, with a clear gap between its leaves and her blue hair. Draw fine leaf silhouettes and subtle warm highlights. Do not repeat the pot, create a wall of dense vegetation, or obscure the woman face with hanging foliage.\",\n      \"bbox\": [\n        -494,\n        -436,\n        -342,\n        -200\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A second and final hanging planter in the upper-right corner, different from the left planter: a small terracotta pot with a trailing vine of pointed leaves and a few pale-yellow blossoms. Suspend it from the greenhouse ceiling with two fine cords. Its foliage overlaps the outer window frame slightly but leaves most of the Earth visible. This planter balances the composition across the top without becoming a mirror copy of the left plant. Keep the flowers small and do not add more hanging pots elsewhere.\",\n      \"bbox\": [\n        -488,\n        218,\n        -322,\n        454\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"A slim vertical cream utility pipe fixed to the far-left greenhouse wall, running behind the woman from the upper-left middle of the frame toward the floor. Include three understated teal fastening bands and a tiny unlettered brass valve near its lower half. Its scale should reinforce the room architecture without drawing attention from the character. Keep the pipe within this narrow strip. Do not transform it into a thick pillar, a window frame, an enormous machine, or a border around the image.\",\n      \"bbox\": [\n        -326,\n        -492,\n        378,\n        -454\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One small terracotta floor pot in the extreme lower-left foreground, containing a compact cluster of coral and pale-yellow flowers with a few dark green leaves. The pot slightly overlaps the very edge of the floor near the botanist left boot but must not cover both shoes or hide her legs. Use clear simple flower silhouettes and a soft grounded shadow. Keep this decorative plant small so the adult woman remains the dominant foreground subject. Do not create a wide flower bed or add more floor pots.\",\n      \"bbox\": [\n        344,\n        -496,\n        496,\n        -384\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One low round workshop stool on the floor beneath the central portion of the table. It has a warm wooden circular seat, three cream metal legs, and a small triangular stretcher. The seat and legs share the room perspective and cast a soft shadow on the light-gray floor. Keep it between the botanist and the assistant robot without intersecting their bodies. The stool is not occupied. Do not add a second stool, turn it into a chair with a high back, or place objects on its seat.\",\n      \"bbox\": [\n        242,\n        28,\n        480,\n        198\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One compact narrow cream storage unit with exactly three shallow drawers under the left end of the worktable. Each drawer has a small teal recessed handle, with no labels. The unit sits on four short feet and follows the same perspective as the table frame. Keep its visible front plane tidy and leave separation from the botanist boots and the stool. This is practical workshop furniture, not a stack of loose boxes, a cabinet spanning the whole scene, or a second robot.\",\n      \"bbox\": [\n        292,\n        -118,\n        470,\n        14\n      ]\n    },\n    {\n      \"label\": \"object\",\n      \"caption\": \"One tiny spherical inspection drone hovering in the upper-middle space between the botanist head and the panoramic window. It has a white shell, one small blue lens, a thin teal equatorial ring, and two tiny folded fins. The drone is much smaller than the floor robot and sits clearly behind the woman rather than directly in front of her face. Add only a faint blue glow and no motion trails. Do not duplicate it, attach a text bubble, or give it a large humanoid body.\",\n      \"bbox\": [\n        -304,\n        -30,\n        -218,\n        58\n      ]\n    }\n  ],\n  \"bbox_coord_space\": \"abs_centralized\",\n  \"bbox_format\": \"yxyx\"\n}"
+      ],
+      "title": "Positive / layout prompt"
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        390,
+        850
+      ],
+      "size": [
+        500,
+        140
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Negative / CFG 1"
+    },
+    {
+      "id": 8,
+      "type": "EmptyFlux2LatentImage",
+      "pos": [
+        0,
+        460
+      ],
+      "size": [
+        350,
+        125
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyFlux2LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ]
+    },
+    {
+      "id": 9,
+      "type": "KSampler",
+      "pos": [
+        1170,
+        240
+      ],
+      "size": [
+        330,
+        280
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 6
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        42,
+        "fixed",
+        8,
+        1.0,
+        "euler",
+        "simple",
+        1.0
+      ],
+      "title": "8 steps / Euler / simple / CFG 1"
+    },
+    {
+      "id": 10,
+      "type": "VAELoader",
+      "pos": [
+        1170,
+        620
+      ],
+      "size": [
+        330,
+        80
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            11
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "flux2-vae_small.safetensors"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "VAEDecode",
+      "pos": [
+        1550,
+        240
+      ],
+      "size": [
+        230,
+        90
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 10
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 12,
+      "type": "SaveImage",
+      "pos": [
+        1830,
+        240
+      ],
+      "size": [
+        480,
+        550
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "MOSS_KV_v2"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      5,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      5,
+      5,
+      0,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      6,
+      4,
+      0,
+      9,
+      0,
+      "MODEL"
+    ],
+    [
+      7,
+      6,
+      0,
+      9,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      7,
+      0,
+      9,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      9,
+      8,
+      0,
+      9,
+      3,
+      "LATENT"
+    ],
+    [
+      10,
+      9,
+      0,
+      11,
+      0,
+      "LATENT"
+    ],
+    [
+      11,
+      10,
+      0,
+      11,
+      1,
+      "VAE"
+    ],
+    [
+      12,
+      11,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.65,
+      "offset": [
+        40,
+        80
+      ]
+    }
+  },
+  "version": 0.4
+}

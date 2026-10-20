@@ -1,0 +1,730 @@
+{
+  "date": "2026-10-20",
+  "workflow_sha256": "455ab7b69f2f1b334a2e1be4be0145e473ea9385bc4377cf9a78fabbecac42a0",
+  "calibration_lora": "moss_image_sft_kv_cache_v2_step000500.safetensors",
+  "precision": "bfloat16",
+  "dmd_strength": 0.7,
+  "steps": 8,
+  "cfg": 1.0,
+  "sampler": "euler",
+  "scheduler": "simple",
+  "size": 1024,
+  "text_timestep": 1000,
+  "warmups": 1,
+  "repeats": 1,
+  "timing_scope": "KSampler start to SaveImage completion, measured by local WebSocket events; includes fresh text KV construction, sampling, VAE decode and PNG saving; excludes text encoding and warm model loading",
+  "prompts": [
+    {
+      "id": "anime_short_portrait",
+      "label": "Blue-haired anime portrait",
+      "prompt": "Anime illustration of an adult woman with short blue hair, amber eyes, and a red scarf. Close-up portrait, clean line art, soft cel shading, pale cream background."
+    },
+    {
+      "id": "anime_rainy_city",
+      "label": "Rainy neon street",
+      "prompt": "A cinematic anime illustration of an adult woman in a yellow raincoat holding a transparent umbrella on a rainy city street at night. Her short dark hair and thoughtful face are clearly visible. Pink and cyan shop lights reflect in puddles, a small white cat waits beside her boots, and distant pedestrians recede into atmospheric mist. Three-quarter full-body view, expressive clean linework, detailed painted background, luminous reflections, a single coherent scene."
+    },
+    {
+      "id": "photo_product",
+      "label": "Glass perfume product shot",
+      "prompt": "Luxury product photography of a single square cobalt-blue glass perfume bottle with a small silver cap, resting on a pale travertine pedestal. A clean white label on the front reads MOSS in simple black uppercase letters. Soft morning sunlight creates a crisp diagonal shadow, subtle caustics, beige background, precise glass reflections, elegant minimal composition."
+    },
+    {
+      "id": "count_three_ovals",
+      "label": "Exactly three red ovals",
+      "prompt": "Minimal flat vector graphic on a pure white background. Exactly three identical solid red vertical ovals, evenly spaced in one horizontal row. No outlines, shadows, gradients, text, or additional shapes."
+    },
+    {
+      "id": "poster_typography",
+      "label": "OPEN / 24 HOURS sign",
+      "prompt": "A clean retro coffee-shop sign on a warm cream background. Large dark-green uppercase lettering reads OPEN on the first line and 24 HOURS on the second line. A small orange coffee-cup icon is centered below the words. Bold readable typography, symmetrical centered layout, subtle paper texture, no other lettering."
+    }
+  ],
+  "measurements": {
+    "anime_short_portrait_joint": {
+      "warmup": {
+        "prompt_id": "345c1d1a-23cc-4467-891d-c9f6a61ba992",
+        "sampler_node_seconds": 4.424764285329729,
+        "sampler_to_saved_image_seconds": 4.713512110058218,
+        "images": [
+          {
+            "filename": "anime_short_portrait_joint_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "5c0913cbfdb6f9590b99c04ee5bb7251087bbd3579749ee1312d20422571efd8"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "0eb17b74-75cf-4021-a7dd-783b9e2bf0ae",
+          "sampler_node_seconds": 3.90000431612134,
+          "sampler_to_saved_image_seconds": 4.172314957715571,
+          "images": [
+            {
+              "filename": "anime_short_portrait_joint_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "ec8550c2d8f6b32c97256f847bf7f2f1a8ea34e8a28b62896a70c200fe5f119b"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.172314957715571,
+      "min_seconds": 4.172314957715571,
+      "max_seconds": 4.172314957715571
+    },
+    "anime_short_portrait_kv": {
+      "warmup": {
+        "prompt_id": "7e0b06ca-7790-452f-8811-5ea8f16d82cf",
+        "sampler_node_seconds": 4.130221976898611,
+        "sampler_to_saved_image_seconds": 4.439808963332325,
+        "images": [
+          {
+            "filename": "anime_short_portrait_kv_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "9ea25f45aadf0721ee59800ed80fabbfa0e6c2147930ea38a9526c45847dcbf9"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "5c1519b3-3cbc-403f-9c63-6f1dbd7f5bd5",
+          "sampler_node_seconds": 4.14737231656909,
+          "sampler_to_saved_image_seconds": 4.442348639946431,
+          "images": [
+            {
+              "filename": "anime_short_portrait_kv_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "a56cd64b90db8abbfd6096e00ca0ab3ad53c6c75594494eda53be2fe3bf37d43"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.442348639946431,
+      "min_seconds": 4.442348639946431,
+      "max_seconds": 4.442348639946431
+    },
+    "anime_short_portrait_kv_corrected": {
+      "warmup": {
+        "prompt_id": "f1eafcd8-cde9-498f-9f85-2b87882ba86a",
+        "sampler_node_seconds": 4.7185832830145955,
+        "sampler_to_saved_image_seconds": 4.986839827150106,
+        "images": [
+          {
+            "filename": "anime_short_portrait_kv_corrected_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "58e8b85c6903b5a943244b0db1cf4fb9c00f12e70d2f36e73f998e9012f525e3"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "08338c5b-76c7-44b2-9fb1-cbbc171ccf64",
+          "sampler_node_seconds": 4.153178298845887,
+          "sampler_to_saved_image_seconds": 4.468345141969621,
+          "images": [
+            {
+              "filename": "anime_short_portrait_kv_corrected_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "d3eeee0a551ed2b90cb36eb9d246e1030ea35a90c72567e35e8ef0a397b4ec5a"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.468345141969621,
+      "min_seconds": 4.468345141969621,
+      "max_seconds": 4.468345141969621
+    },
+    "anime_rainy_city_joint": {
+      "warmup": {
+        "prompt_id": "d2d07289-2d8c-47a7-93d0-064754ac9f51",
+        "sampler_node_seconds": 4.648408060893416,
+        "sampler_to_saved_image_seconds": 5.01050677197054,
+        "images": [
+          {
+            "filename": "anime_rainy_city_joint_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "6e919e5f246cd0fbbfe725e503562e3c273080f5c945b7348d44d0bc5a0c073f"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "729eb02b-db34-47c4-b21a-7c796aed96ca",
+          "sampler_node_seconds": 4.225142405834049,
+          "sampler_to_saved_image_seconds": 4.599562565796077,
+          "images": [
+            {
+              "filename": "anime_rainy_city_joint_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "27dfedc485e157172f1797542798c0ba14ae18bde9274d0bdb63a0534c53785b"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.599562565796077,
+      "min_seconds": 4.599562565796077,
+      "max_seconds": 4.599562565796077
+    },
+    "anime_rainy_city_kv": {
+      "warmup": {
+        "prompt_id": "e1409052-5a0e-4836-8d85-9324008a6bb5",
+        "sampler_node_seconds": 4.201446631923318,
+        "sampler_to_saved_image_seconds": 4.559986372012645,
+        "images": [
+          {
+            "filename": "anime_rainy_city_kv_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "2f71c356c89959f382db04c85cfc15adabfb39844c921861711d672c36465e95"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "6a657190-bf4f-4e4a-a603-d7d57ffbf8da",
+          "sampler_node_seconds": 4.231968662701547,
+          "sampler_to_saved_image_seconds": 4.568268952891231,
+          "images": [
+            {
+              "filename": "anime_rainy_city_kv_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "479a392cbfb7fdfda8cf19031ab9b5447b1538a2d926a5b17f37976f7772c07a"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.568268952891231,
+      "min_seconds": 4.568268952891231,
+      "max_seconds": 4.568268952891231
+    },
+    "anime_rainy_city_kv_corrected": {
+      "warmup": {
+        "prompt_id": "b85cc219-b0c7-4f91-9c42-fca6b47f9b02",
+        "sampler_node_seconds": 4.803998223040253,
+        "sampler_to_saved_image_seconds": 5.119867862202227,
+        "images": [
+          {
+            "filename": "anime_rainy_city_kv_corrected_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "98b845c23b2c581a20164e3623af656bdb8006a8981f00368392e70f1d6592bb"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "00d3cbcc-7cf5-43c9-8828-5274bdc73f26",
+          "sampler_node_seconds": 4.249299514107406,
+          "sampler_to_saved_image_seconds": 4.587448094040155,
+          "images": [
+            {
+              "filename": "anime_rainy_city_kv_corrected_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "c02858cc8ef7964101ac1d080aeb0769da9a4de2dc238f82b6ad7e8e7119c030"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.587448094040155,
+      "min_seconds": 4.587448094040155,
+      "max_seconds": 4.587448094040155
+    },
+    "photo_product_joint": {
+      "warmup": {
+        "prompt_id": "df5ef4ac-0ada-4fc7-85bf-3e02db734c5f",
+        "sampler_node_seconds": 4.675381411332637,
+        "sampler_to_saved_image_seconds": 4.964219592045993,
+        "images": [
+          {
+            "filename": "photo_product_joint_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "be3070958bf4711922d8a5170434cf36d6c5149aa63d31de879b090dd1ad68d3"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "638a32f2-0376-4837-9263-d6e15ece5e70",
+          "sampler_node_seconds": 4.278147259261459,
+          "sampler_to_saved_image_seconds": 4.553916350007057,
+          "images": [
+            {
+              "filename": "photo_product_joint_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "c27b47f4c864b5a67eb128555becb7a3f87b93ee3ac89d47cbcbcdd03f003852"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.553916350007057,
+      "min_seconds": 4.553916350007057,
+      "max_seconds": 4.553916350007057
+    },
+    "photo_product_kv": {
+      "warmup": {
+        "prompt_id": "27d59e5b-7f7a-4d1b-a337-588c28b91928",
+        "sampler_node_seconds": 4.250206700060517,
+        "sampler_to_saved_image_seconds": 4.540344737935811,
+        "images": [
+          {
+            "filename": "photo_product_kv_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "8c76aa38d099d6e56b5b64ea4dd5bd1ecb18b9aea5babeb883102b419acdd011"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "52ab8a3a-8ca1-4e7e-b2ad-9437262eb3b5",
+          "sampler_node_seconds": 4.253300150856376,
+          "sampler_to_saved_image_seconds": 4.6798307886347175,
+          "images": [
+            {
+              "filename": "photo_product_kv_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "9cee9251626686e3d2770691778f689f7477de589ad01d2b134a9ef0e896f71c"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.6798307886347175,
+      "min_seconds": 4.6798307886347175,
+      "max_seconds": 4.6798307886347175
+    },
+    "photo_product_kv_corrected": {
+      "warmup": {
+        "prompt_id": "969cfdeb-06ee-4219-b6eb-c7cf89242148",
+        "sampler_node_seconds": 4.814183139242232,
+        "sampler_to_saved_image_seconds": 5.112028742209077,
+        "images": [
+          {
+            "filename": "photo_product_kv_corrected_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "d54068b8df954d02f31e7f5a6ecfc7d210c96cbd49a25be61dced370a3205e47"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "a6a1aa3e-1ecf-410c-a9f4-1eebcb8f7dd8",
+          "sampler_node_seconds": 4.2550432798452675,
+          "sampler_to_saved_image_seconds": 4.596761294640601,
+          "images": [
+            {
+              "filename": "photo_product_kv_corrected_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "08e72463338ac0f4a2d1a077076fcc618faf4ce9f71154a853f5e2765fbeaadd"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.596761294640601,
+      "min_seconds": 4.596761294640601,
+      "max_seconds": 4.596761294640601
+    },
+    "count_three_ovals_joint": {
+      "warmup": {
+        "prompt_id": "fd317db6-155c-4e6e-8ecc-5adf02f1e9d9",
+        "sampler_node_seconds": 4.4527511722408235,
+        "sampler_to_saved_image_seconds": 4.732624122872949,
+        "images": [
+          {
+            "filename": "count_three_ovals_joint_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "338be5045e5a48f8467fca5f31f16b9f1308fedb83bb6417394a9b9183691af4"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "c5546ffc-4d87-4b53-8047-27f1f84c40a6",
+          "sampler_node_seconds": 4.047158906701952,
+          "sampler_to_saved_image_seconds": 4.292993200011551,
+          "images": [
+            {
+              "filename": "count_three_ovals_joint_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "f36ba7eb419377b3186c0e7b16d1dbb3425be1fb20344c45175938c280c8da1d"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.292993200011551,
+      "min_seconds": 4.292993200011551,
+      "max_seconds": 4.292993200011551
+    },
+    "count_three_ovals_kv": {
+      "warmup": {
+        "prompt_id": "5a4a2bdf-8e6e-4b2f-88f0-58c3928b2754",
+        "sampler_node_seconds": 4.251372029073536,
+        "sampler_to_saved_image_seconds": 4.5801115478388965,
+        "images": [
+          {
+            "filename": "count_three_ovals_kv_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "d204057cd21df5b03b4e40b4ef2189c3a5be5bfaa076bfc87367a9563b33bda1"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "fe43148f-db31-4178-b3d8-49fbdcfcd89b",
+          "sampler_node_seconds": 4.263350075110793,
+          "sampler_to_saved_image_seconds": 4.498369005974382,
+          "images": [
+            {
+              "filename": "count_three_ovals_kv_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "41f5aa2c6138e01e5638e53a97f788ddaae224e8825db102062929f79342047c"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.498369005974382,
+      "min_seconds": 4.498369005974382,
+      "max_seconds": 4.498369005974382
+    },
+    "count_three_ovals_kv_corrected": {
+      "warmup": {
+        "prompt_id": "0bf98f11-0cd9-4786-9be4-33ba0a843200",
+        "sampler_node_seconds": 4.818320003338158,
+        "sampler_to_saved_image_seconds": 5.06244113529101,
+        "images": [
+          {
+            "filename": "count_three_ovals_kv_corrected_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "37d334e9663b95f3cf55d51f72e1150af513014b466765d10a8bcdb6470c0bb9"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "72ec577f-8611-46c4-93e6-12f9c31e11ef",
+          "sampler_node_seconds": 4.284593255259097,
+          "sampler_to_saved_image_seconds": 4.6503378031775355,
+          "images": [
+            {
+              "filename": "count_three_ovals_kv_corrected_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "090d13ea51d44fa47a92515d827846a4df89a699fd71b43c7dd97c6520153635"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.6503378031775355,
+      "min_seconds": 4.6503378031775355,
+      "max_seconds": 4.6503378031775355
+    },
+    "poster_typography_joint": {
+      "warmup": {
+        "prompt_id": "6fcc7380-172b-4d15-a7e5-9f2b8f69546b",
+        "sampler_node_seconds": 4.694781763013452,
+        "sampler_to_saved_image_seconds": 5.01524872193113,
+        "images": [
+          {
+            "filename": "poster_typography_joint_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "517b89151d5e3c2228070913be6435f234594b6d65fba2186dd522b3d04e374f"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "cfd69c96-b2e3-4384-8fcf-a02243252dc3",
+          "sampler_node_seconds": 4.313410860020667,
+          "sampler_to_saved_image_seconds": 4.612031282391399,
+          "images": [
+            {
+              "filename": "poster_typography_joint_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "288b2599e2de01840388c824ffd7499daf5311d3a1283fa1ca431ff563e28933"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.612031282391399,
+      "min_seconds": 4.612031282391399,
+      "max_seconds": 4.612031282391399
+    },
+    "poster_typography_kv": {
+      "warmup": {
+        "prompt_id": "00b70e82-7aa4-4bc8-b645-8fe06da068b0",
+        "sampler_node_seconds": 4.278147808741778,
+        "sampler_to_saved_image_seconds": 4.612479543779045,
+        "images": [
+          {
+            "filename": "poster_typography_kv_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "2ef8457eee0f8d7188cccaf0b25b06a51b054c488d15eec22ddd70c5960b4a6b"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "cb926e3b-82ce-4fde-ac02-7c0923aee6eb",
+          "sampler_node_seconds": 4.320409331936389,
+          "sampler_to_saved_image_seconds": 4.635604952927679,
+          "images": [
+            {
+              "filename": "poster_typography_kv_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "1e8c1527f48563126c729f625651c426134ca7e1a0923e0a4d118255c2318d51"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.635604952927679,
+      "min_seconds": 4.635604952927679,
+      "max_seconds": 4.635604952927679
+    },
+    "poster_typography_kv_corrected": {
+      "warmup": {
+        "prompt_id": "2a337666-b6d3-4011-8be8-3dc5ca9d0090",
+        "sampler_node_seconds": 4.839509211014956,
+        "sampler_to_saved_image_seconds": 5.165549401193857,
+        "images": [
+          {
+            "filename": "poster_typography_kv_corrected_0_00001_.png",
+            "subfolder": "release_v2/comparison",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 1024,
+              "height": 1024
+            },
+            "pixel_sha256": "e9e07e80eb33d9f6eda17b55ef28754a9f2bd4e4b7ec536d7f3f17ecf295c56c"
+          }
+        ],
+        "seed": 20261019
+      },
+      "runs": [
+        {
+          "prompt_id": "6acf8e79-94fc-488e-bdc1-500c5750f101",
+          "sampler_node_seconds": 4.295816241297871,
+          "sampler_to_saved_image_seconds": 4.593831880949438,
+          "images": [
+            {
+              "filename": "poster_typography_kv_corrected_1_00001_.png",
+              "subfolder": "release_v2/comparison",
+              "type": "output",
+              "metadata": {
+                "kind": "image",
+                "width": 1024,
+                "height": 1024
+              },
+              "pixel_sha256": "b81680f125e209b875c43cc029d1211b6862f0eff610b27920f8413a55805dd3"
+            }
+          ],
+          "seed": 20261020
+        }
+      ],
+      "median_seconds": 4.593831880949438,
+      "min_seconds": 4.593831880949438,
+      "max_seconds": 4.593831880949438
+    }
+  },
+  "gpu": "cuda:0 NVIDIA RTX 6000 Ada Generation : cudaMallocAsync",
+  "comfyui_version": "0.41.0",
+  "pytorch_version": "2.14.1+cu130",
+  "calibration_sha256": "153f2262234e55a11644428a962f8f2566e9e4d090095aa07ff5365847e5ac04",
+  "qkv_layout": "split",
+  "text_encoder_precision": "bfloat16",
+  "model": "OpenMOSS-Team/MOSS-Image-SFT",
+  "model_revision": "fc5de0d56fc910cbca6f6625a70f5f582b26deb1",
+  "dmd_revision": "f95df83b5e90ae91ea412434b3f9b7f1c8c6314f",
+  "comfyui_commit": "6607f36b53c7b695b160ac5b52d595e9e3752a2d"
+}

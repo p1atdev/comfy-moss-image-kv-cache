@@ -1,4 +1,4 @@
-"""Render the BF16 timing chart and the seed-42 long-prompt comparison."""
+"""Render BF16 timing and image comparisons from actual ComfyUI outputs."""
 
 import argparse
 import json
@@ -15,17 +15,17 @@ from PIL import Image, ImageDraw, ImageFont
 def render(source: Path, image_root: Path, output: Path) -> None:
     data = json.loads(source.read_text())
     output.mkdir(parents=True, exist_ok=True)
-    variants = ("joint", "kv", "kv_cal100")
-    labels = ("Joint attention", "Text KV cache", "KV + correction LoRA")
+    variants = ("joint", "kv", "kv_corrected")
+    labels = ("Joint attention", "Text KV cache", "KV + v2 correction LoRA")
     colors = ("#53657f", "#46a99b", "#126c60")
     baseline = data["measurements"]["long_joint"]["median_seconds"]
-    corrected = data["measurements"]["long_kv_cal100"]["median_seconds"]
+    corrected = data["measurements"]["long_kv_corrected"]["median_seconds"]
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 11})
     fig, axes = plt.subplots(2, 1, figsize=(10, 6.5), sharex=True)
     fig.subplots_adjust(left=0.25, right=0.91, top=0.75, bottom=0.22, hspace=0.65)
     fig.patch.set_facecolor("#ffffff")
     fig.text(
-        0.04, 0.94, "MOSS-Image: text KV caching in ComfyUI", size=19, weight="bold"
+        0.04, 0.94, "MOSS-Image v2: text KV caching in ComfyUI", size=19, weight="bold"
     )
     fig.text(
         0.04,
@@ -54,7 +54,7 @@ def render(source: Path, image_root: Path, output: Path) -> None:
         ax.barh(range(3), values, color=colors, height=0.60, xerr=error, capsize=3)
         ax.set_yticks(range(3), labels)
         ax.invert_yaxis()
-        ax.set_xlim(0, 9.3)
+        ax.set_xlim(0, max(9.3, max(values) * 1.25))
         ax.set_title(
             f"{case['label']} · {case['reference_tokens']:,} tokens",
             loc="left",
@@ -90,7 +90,7 @@ def render(source: Path, image_root: Path, output: Path) -> None:
     font = ImageFont.load_default(size=18)
     draw.text(
         (gap, 12),
-        "Same long prompt and seed 42 · BF16 · DMD 0.7 · 8 steps",
+        "Same long prompt and seed 42 · BF16 · DMD 0.7 · 8 steps · v2",
         font=title,
         fill="#172637",
     )
@@ -114,10 +114,77 @@ def render(source: Path, image_root: Path, output: Path) -> None:
     sheet.save(output / "long_prompt_comparison.jpg", quality=92, optimize=True)
 
 
+def render_comparisons(source: Path, image_root: Path, output: Path) -> None:
+    data = json.loads(source.read_text())
+    variants = ("joint", "kv", "kv_corrected")
+    labels = ("Joint attention", "Text KV cache", "KV + v2 correction LoRA")
+    groups = (
+        ("anime_comparison_v2.jpg", data["prompts"][:2]),
+        ("prompt_comparison_v2.jpg", data["prompts"][2:]),
+    )
+    tile, gap, row_header, top, bottom = 384, 16, 38, 88, 42
+    title = ImageFont.load_default(size=24)
+    font = ImageFont.load_default(size=18)
+    for filename, cases in groups:
+        sheet = Image.new(
+            "RGB",
+            (3 * tile + 4 * gap, top + len(cases) * (tile + row_header) + bottom),
+            "white",
+        )
+        draw = ImageDraw.Draw(sheet)
+        seed = data["measurements"][f"{cases[0]['id']}_joint"]["runs"][0]["seed"]
+        draw.text(
+            (gap, 12),
+            "MOSS-Image · native ComfyUI · BF16 · v2 correction",
+            font=title,
+            fill="#172637",
+        )
+        draw.text(
+            (gap, 44),
+            f"DMD 0.7 · Euler/simple · 8 steps · CFG 1 · 1024 x 1024 · same seed {seed}",
+            font=font,
+            fill="#53657f",
+        )
+        for column, label in enumerate(labels):
+            draw.text(
+                (gap + column * (tile + gap), top - 24),
+                label,
+                font=font,
+                fill="#172637",
+            )
+        for row, case in enumerate(cases):
+            y = top + row * (tile + row_header)
+            draw.text((gap, y + 8), case["label"], font=font, fill="#172637")
+            for column, variant in enumerate(variants):
+                image = data["measurements"][f"{case['id']}_{variant}"]["runs"][0][
+                    "images"
+                ][0]
+                with Image.open(
+                    image_root / image["subfolder"] / image["filename"]
+                ) as original:
+                    sheet.paste(
+                        original.convert("RGB").resize(
+                            (tile, tile), Image.Resampling.LANCZOS
+                        ),
+                        (gap + column * (tile + gap), y + row_header),
+                    )
+        draw.text(
+            (gap, sheet.height - 28),
+            "Qualitative examples; identical seeds do not make the attention computations equivalent.",
+            font=font,
+            fill="#53657f",
+        )
+        sheet.save(output / filename, quality=92, optimize=True)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path)
     parser.add_argument("--image-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--comparisons", type=Path)
     args = parser.parse_args()
     render(args.source, args.image_root, args.output)
+
+    if args.comparisons:
+        render_comparisons(args.comparisons, args.image_root, args.output)

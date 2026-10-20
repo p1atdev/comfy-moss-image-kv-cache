@@ -27,12 +27,12 @@ def main() -> None:
     parser.add_argument("--server", default="http://127.0.0.1:8188")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--calibration-strength", type=float, default=1.0)
-    parser.add_argument("--prefix", default="MOSS_KV_Cal100")
+    parser.add_argument("--prefix", default="MOSS_KV_v2")
     parser.add_argument("--timeout", type=float, default=1800)
     args = parser.parse_args()
     root = Path(__file__).resolve().parent
-    prompt = json.loads((root / "moss_kv_cal100_api.json").read_text())
-    workflow = json.loads((root / "moss_kv_cal100.json").read_text())
+    prompt = json.loads((root / "moss_kv_v2_api.json").read_text())
+    workflow = json.loads((root / "moss_kv_v2.json").read_text())
     prompt["9"]["inputs"]["seed"] = args.seed
     prompt["3"]["inputs"]["strength_model"] = args.calibration_strength
     prompt["12"]["inputs"]["filename_prefix"] = args.prefix
